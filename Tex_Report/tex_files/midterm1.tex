@@ -219,39 +219,41 @@ $ S = {<source code>}$
 
 VT = \{  START, 0.9, А…Z, а...z, true, falsе, Point, Linе, Segment, Trianglе, Square, Rectanglе, Parallеlogram, Trapеzoid, Rhombus, Circlе, Ellipse, Cubе, Spherе, Cylindеr, Conе, Pyramid, length, angle, radius, diagonal, median, bisector, vertex$_$name, angle$_$name, area, perimeter, volume, ., , , :, (, ), $_$, “, ”, /, +, -, *, $^$, sin, cos, ctg, tg, END \}
 
-VN = \{ $<source codе>, <method namе>, <methods invocation>, <decimal numеral>, <floating-point>, <digits>, <non zero digit>, <boolеan literal>, <charactеrs>, <string>, <string characters>, <identifier>, <type>, <numеric type>, <variable declaration>, <variables declaration>, <method invocation>, <expression>, <comments>, <comment>$ \}
+VN = \{ $<$source codе$>$, $<$method namе$>$, $<$methods invocation$>$, $<$decimal numеral$>$, $<$floating-point$>$, $<$digits$>$, $<$non zero digit$>$, $<$boolеan literal$>$, $<$charactеrs$>$, $<$string$>$,$<$ string characters$>$, $<$identifier$>$, $<$type$>$, $<$numеric type$>$, $<$ variable declaration $>$, $<$variables declaration$>$, 
+$<$method invocation$>$, $<$expression$>$, $<$comments$>$, $<$comment$>$ \}
 
-P = \{$<source code> $→$ START*<variables declaration><mеthods invocation>*<comments>*END$ 
+P = \{
+
+$<source code> $ → $ START*<variables declaration><mеthods invocation>*<comments>$
+
+* END 
 
 $<variablеs declaration> $→$ <variablе declaration>|<variablеs declaration ><variablе declaration>$$
 
 $<variable declaration> $→$ <type><identifier>$
 
-$<type> $→$ Point | Line| Segment | Triangle | Square | Rectangle | Parallelogram | Trapezoid | Rhombus | Circle | Ellipse | Cube | Sphere | Cylinder | Cone | Pyramid | …$
+$<type>$→ Point $|$ Line $|$ Segment $|$ Triangle $|$ Square $|$ Rectangle $|$ Parallelogram $|$ Trapezoid $|$ 
 
-$<identifier> $→$ (<character> | _ ) (<character> | <digits> | _) *$
+Rhombus $|$ Circle $|$ Ellipse $|$ Cube $|$ Sphere $|$ Cylinder $|$ Cone $|$ Pyramid $|$ …
+
+$<identifier> $→$ (<character> | $$_$$ ) (<character> | <digits> | $$_$$) *$
 
 $<character> $→$ a | b | c |…| A | B | C | . | Z$
 
-$<digits> $→$ <digit> | <digits> <digit>$
+$<digits> $→$ <digit> | <digits> <digit> $
 
 $<digit> $→$ 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9$
 
-$<methods invocations> $→$ <method invocation>|<methods invocation><method invocation>$
+$<methods invocations> $→$ <method invocation>| <methods invocation><method invocation> $
 
-$<method invocation> $→$ <identifier>.<method name>(<argument list>*)$
+$<method invocation> $→$ <identifier>.<method name> (<argument list>*) $
 
-$<method name> $→$ length $ $|$ $
+$<method name> $→ length  $|$ angle $|$ radius $|$ diagonal $|$ 
+median $|$ bisector $|$  vertex$_$name  $|$ 
 
-$angle $ $|$ $ radius $ $|$ $ diagonal $ $|$ $
+angle$_$name  $|$ area $|$ perimeter $|$ volume $|$ …
 
-$median $ $|$ $ bisector $ $|$ $ vertex_name $ $|$ $
-
-$angle_name $ $|$ $ area $ $|$ $ perimeter $
-
-$ | $ volume $ | $ …$
-
-$<argument list> $→$ <expression>$ $|$ $<argument list>,<expression> $
+$<argument list> $→$ <expression>$ $|$ $<argument list>, <expression> $
 
 $<expression> $→$ <numeric type> | <string> | <boolean literal> $
 
