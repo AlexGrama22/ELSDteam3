@@ -1,4 +1,6 @@
 import sys
+
+import FileStream as FileStream
 from antlr4 import *
 from geometrydslLexer import geometrydslLexer
 from geometrydslParser import geometrydslParser
