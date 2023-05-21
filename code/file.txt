@@ -1,1 +1,33 @@
-adsfasdf
+START
+Square A
+Square B
+Triangle C
+Circle D
+Rectangle E
+Parallelogram Z
+Ellipse X
+X.setParameters(20, 6)
+X.perimeter()
+Z.setParameters(5,6,65)
+Z.area()
+Z.diagonal()
+Z.perimeter()
+E.setParameters(10,5)
+A.setParameters(4)
+B.setParameters(3)
+C.setParameters(2,2,3)
+D.setParameters(10)
+D.radius()
+A.perimeter()
+B.perimeter()
+C.perimeter()
+D.perimeter()
+E.perimeter()
+A.area()
+B.area()
+C.area()
+D.area()
+E.area()
+
+END
+

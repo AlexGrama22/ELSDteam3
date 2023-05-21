@@ -1,0 +1,5 @@
+START
+Square ABCD
+ABCD.setParameters(4)
+ABCD.perimeter()
+ABCD.area()

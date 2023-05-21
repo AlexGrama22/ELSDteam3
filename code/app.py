@@ -1,5 +1,4 @@
 import tkinter as tk
-import sys
 
 class TextRedirector(object):
     def __init__(self, widget):
