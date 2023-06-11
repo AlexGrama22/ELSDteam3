@@ -8,7 +8,6 @@ class GInter:
         self.vars = {}
 
     def getVars(self):
-        print(self.vars)
         i = 0
         start = self.tree.getChild(0)
         while start is not None:
@@ -16,7 +15,7 @@ class GInter:
                 self.vcontext(start)
             i += 1
             start = self.tree.getChild(i)
-        print(self.vars)
+        # print(self.vars)
 
     def getMeth(self):
         i = 0
@@ -39,10 +38,14 @@ class GInter:
             if var.getChild(2).getText() == "setParameters":
                 var_name = var.getChild(0).getText()
                 if self.vars[var_name]['type'] == "Square" or self.vars[var_name]['type'] == "Cube":
-                    print(var_name)
+                    if var.getChild(4).getChild(1) is not None:
+                        raise SyntaxError("Wrong input in setParameters(side)")
                     self.vars[var_name]['side'] = var.getChild(4).getText()
                 if self.vars[var_name]['type'] == "Triangle":
-                    print(var_name)
+                    if var.getChild(4).getChild(0).getChild(2) is None:
+                        raise SyntaxError("Wrong input in setParameters(first side, second side, third side)")
+                    if var.getChild(4).getChild(0).getChild(0).getChild(2) is not None:
+                        raise SyntaxError("Wrong input in setParameters(first side, second side, third side) ")
                     a = float(var.getChild(4).getChild(0).getChild(0).getText())
                     b = float(var.getChild(4).getChild(0).getChild(2).getText())
                     c = float(var.getChild(4).getChild(2).getText())
@@ -51,20 +54,30 @@ class GInter:
                         self.vars[var_name]['side2'] = var.getChild(4).getChild(0).getChild(2).getText()
                         self.vars[var_name]['side3'] = var.getChild(4).getChild(2).getText()
                     else:
-                        raise Exception("Impossible Triangle")
+                        raise AttributeError("Impossible Triangle")
                 if self.vars[var_name]['type'] == "Circle" or self.vars[var_name]['type'] == "Sphere":
-                    print(var_name)
+                    if var.getChild(4).getChild(1) is not None:
+                        raise SyntaxError("Wrong input in setParameters(diameter)")
                     self.vars[var_name]['diameter'] = var.getChild(4).getText()
                 if self.vars[var_name]['type'] == "Rectangle":
-                    print(var_name)
+                    if var.getChild(4).getChild(2) is None:
+                        raise SyntaxError("Wrong input in setParameters(length, width)")
+                    if var.getChild(4).getChild(0).getChild(2) is not None:
+                        raise SyntaxError("Wrong input in setParameters(length, width) ")
                     self.vars[var_name]['length'] = var.getChild(4).getChild(0).getText()
                     self.vars[var_name]['width'] = var.getChild(4).getChild(2).getText()
                 if self.vars[var_name]['type'] == "Cylinder" or self.vars[var_name]['type'] == "Cone":
-                    print(var_name)
+                    if var.getChild(4).getChild(2) is None:
+                        raise SyntaxError("Wrong input in setParameters(diameter, height)")
+                    if var.getChild(4).getChild(0).getChild(2) is not None:
+                        raise SyntaxError("Wrong input in setParameters(diameter, height) ")
                     self.vars[var_name]['diameter'] = var.getChild(4).getChild(0).getText()
                     self.vars[var_name]['height'] = var.getChild(4).getChild(2).getText()
                 if self.vars[var_name]['type'] == "Parallelogram":
-                    print(var_name)
+                    if var.getChild(4).getChild(2) is None:
+                        raise SyntaxError("Wrong input in setParameters(length, width, angle(optional))")
+                    if var.getChild(4).getChild(0).getChild(0).getChild(2) is not None:
+                        raise SyntaxError("Wrong input in setParameters(length, width, angle(optional)) ")
                     if var.getChild(4).getChild(0).getChild(2) is not None:
                         self.vars[var_name]['length'] = var.getChild(4).getChild(0).getChild(0).getText()
                         self.vars[var_name]['width'] = var.getChild(4).getChild(0).getChild(2).getText()
@@ -74,7 +87,10 @@ class GInter:
                         self.vars[var_name]['width'] = var.getChild(4).getChild(2).getText()
                         self.vars[var_name]['angle'] = "60"
                 if self.vars[var_name]['type'] == "Ellipse":
-                    print(var_name)
+                    if var.getChild(4).getChild(2) is None:
+                        raise SyntaxError("Wrong input in setParameters(major, minor)")
+                    if var.getChild(4).getChild(0).getChild(2) is not None:
+                        raise SyntaxError("Wrong input in setParameters(major, minor) ")
                     self.vars[var_name]['major'] = var.getChild(4).getChild(0).getText()
                     self.vars[var_name]['minor'] = var.getChild(4).getChild(2).getText()
             if var.getChild(2).getText() == "perimeter":
@@ -96,11 +112,11 @@ class GInter:
                     p = a + b + c
                     print("Perimeter of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
                         p) + " units")
-                if self.vars[var_name]['type'] == "Circle":
+                if self.vars[var_name]['type'] == "Circle" or self.vars[var_name]['type'] == "Sphere" or self.vars[var_name]['type'] == "Cylinder" or self.vars[var_name]['type'] == "Cone":
                     a = float(self.vars[var_name]["diameter"])
                     r = a / 2
                     p = 2 * math.pi * r
-                    print("Perimeter of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
+                    print("Perimeter(Circumference) of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
                         p) + " units")
                 if self.vars[var_name]['type'] == "Rectangle":
                     l = float(self.vars[var_name]['length'])
@@ -212,6 +228,8 @@ class GInter:
                     r = a / 2
                     print("Radius of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
                         r) + " units")
+                else:
+                    raise ArithmeticError(self.vars[var_name]['type'] + " don't have radius")
             if var.getChild(2).getText() == "diagonal":
                 var_name = var.getChild(0).getText()
                 if self.vars[var_name]['type'] == "Square":
@@ -219,10 +237,22 @@ class GInter:
                     diagonal = a * math.sqrt(2)
                     print("Diagonal of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
                         diagonal) + " units")
+                if self.vars[var_name]['type'] == "Cube":
+                    a = float(self.vars[var_name]['side'])
+                    diagonal = a * math.sqrt(3)
+                    print("Diagonal of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
+                        diagonal) + " units")
                 if self.vars[var_name]['type'] == "Rectangle":
                     l = float(self.vars[var_name]['length'])
                     w = float(self.vars[var_name]['width'])
                     diagonal = math.sqrt(pow(l, 2) + pow(w, 2))
+                    print("Diagonal of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
+                        diagonal) + " units")
+                if self.vars[var_name]['type'] == "Cylinder":
+                    d = float(self.vars[var_name]['diameter'])
+                    h = float(self.vars[var_name]['height'])
+                    r = d / 2
+                    diagonal = math.sqrt(4 * pow(r, 2) + pow(h, 2))
                     print("Diagonal of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
                         diagonal) + " units")
                 if self.vars[var_name]['type'] == "Parallelogram":
@@ -233,6 +263,8 @@ class GInter:
                     diagonal2 = math.sqrt((pow(l, 2) + pow(w, 2) - 2 * l * w * math.cos(math.radians(a))))
                     print("First diagonal of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
                         diagonal1) + " and second diagonal is equal to " + str(diagonal2) + " units")
+                else:
+                    raise ArithmeticError(self.vars[var_name]['type'] + " don't have diagonal")
             if var.getChild(2).getText() == "volume":
                 var_name = var.getChild(0).getText()
                 if self.vars[var_name]['type'] == "Cube":
@@ -240,7 +272,7 @@ class GInter:
                     v = pow(a, 3)
                     print("Volume of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
                         v) + " cube units")
-                if self.vars[var_name]['type'] == "Circle":
+                if self.vars[var_name]['type'] == "Sphere":
                     a = float(self.vars[var_name]['diameter'])
                     r = a / 2
                     v = (4 / 3) * math.pi * pow(r, 3)
@@ -260,6 +292,8 @@ class GInter:
                     v = math.pi * pow(r, 2) * (h / 3)
                     print("Volume of a " + self.vars[var_name]['type'] + " " + var_name + " is equal to " + str(
                         v) + " cube units")
+                else:
+                    raise ArithmeticError(self.vars[var_name]['type'] + " don't have volume")
             if var.getChild(2).getText() == "median":
                 var_name = var.getChild(0).getText()
                 if self.vars[var_name]['type'] == "Triangle":
@@ -275,6 +309,8 @@ class GInter:
                         'type'] + " " + var_name + " is equal to " + str(m2) + " units")
                     print("Median of a third side of a " + self.vars[var_name][
                         'type'] + " " + var_name + " is equal to " + str(m3) + " units")
+                else:
+                    raise ArithmeticError(self.vars[var_name]['type'] + " don't have median")
         if isinstance(var, geometrydslParser.MethodInvocationsContext):
             self.mcontext(var.getChild(0))
             self.mcontext(var.getChild(1))
