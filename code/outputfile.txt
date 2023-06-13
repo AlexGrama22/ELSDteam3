@@ -1,0 +1,5 @@
+Median of a first side of a Triangle C is equal to 4.8741665954294175 units
+Median of a second side of a Triangle C is equal to 4.440157654858665 units
+Median of a third side of a Triangle C is equal to 2.438237068047322 units
+Perimeter(Circumference) of a Sphere E is equal to 9.42477796076938 units
+Radius of a Sphere E is equal to 1.5 units

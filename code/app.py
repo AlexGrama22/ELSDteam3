@@ -1,4 +1,6 @@
 import tkinter as tk
+import compiler
+from tkinter import filedialog
 
 class TextRedirector(object):
     def __init__(self, widget):
@@ -8,6 +10,29 @@ class TextRedirector(object):
         self.widget.insert(tk.END, str)
         self.widget.see(tk.END)
 
+
+def save_as():
+    # Open a save file dialog
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+
+    if file_path:
+        # Write the text from the Text widget to the file
+        with open(file_path, 'w') as file:
+            file.write(memo.get(1.0, tk.END))
+
+def open_and_read():
+    # Open a save file dialog
+    file_path = filedialog.askopenfilename(filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+
+    if file_path:
+        # Read the contents of the file
+        with open(file_path, 'r') as file:
+            contents = file.read()
+
+        # Display the contents in the Text widget
+        memo.delete(1.0, tk.END)
+        memo.insert(tk.END, contents)
+
 def run_click():
     output['state'] = 'normal'  # Enable editing
     output.delete(1.0, tk.END)  # Clear existing text
@@ -15,7 +40,15 @@ def run_click():
     print(text)
     with open('file.txt', 'w') as file:
         file.write(text)
-    output.insert(tk.END, text)  # Insert the text from the memo widget
+    compiler.main()
+
+    with open('outputfile.txt', 'r') as file:
+        # Read the contents of the file
+        contents = file.read()
+
+    if not contents:
+        contents = 'Error'
+    output.insert(tk.END, contents)  # Insert the text from the memo widget
     output['state'] = 'disabled'  # Disable editing
 
 
@@ -34,17 +67,17 @@ filemenu = tk.Menu(menu, tearoff=0)
 menu.add_cascade(label='File', menu=filemenu)
 
 # Add commands to the 'File' menu
-filemenu.add_command(label='New')
-filemenu.add_command(label='Open...')
+filemenu.add_command(label='New', command=save_as)
+filemenu.add_command(label='Open...', command=open_and_read)
 filemenu.add_separator()
 filemenu.add_command(label='Exit', command=close_click)
 
-# Create the 'Help' menu
-helpmenu = tk.Menu(menu, tearoff=0)
-menu.add_cascade(label='Help', menu=helpmenu)
-
-# Add commands to the 'Help' menu
-helpmenu.add_command(label='About')
+# # Create the 'Help' menu
+# helpmenu = tk.Menu(menu, tearoff=0)
+# menu.add_cascade(label='Help', menu=helpmenu)
+#
+# # Add commands to the 'Help' menu
+# helpmenu.add_command(label='About')
 
 memo = tk.Text(window, width=100, height=35)
 scroll = tk.Scrollbar(window, command=memo.yview)

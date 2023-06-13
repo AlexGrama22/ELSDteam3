@@ -1,13 +1,10 @@
 START
-Square A
-Cone C
-Triangle T
-Rectangle B
-T.setParameters(2,2,3)
-B.setParameters(3,6)
-C.setParameters(2,3)
-A.setParameters(4.2)
-A.perimeter()
-A.area()
+Triangle C
+Sphere E
+C. setParameters (3.5, 4.2, 6)
+E. setParameters (3)
+C.median ()
+E.perimeter ()
+E.radius ()
 END
 
